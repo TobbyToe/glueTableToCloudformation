@@ -1,0 +1,126 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AWS Glue Database and Tables for Imba Project - User: Tobby'
+
+Resources:
+  # 1. 创建数据库
+  ImbaDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: "imba_db"
+        Description: "Database for Instacart Market Basket Analysis"
+
+  # 2. Orders 表
+  OrdersTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref ImbaDatabase
+      TableInput:
+        Name: "orders"
+        TableType: "EXTERNAL_TABLE"
+        Parameters: { "skip.header.line.count": "1" }
+        StorageDescriptor:
+          Columns:
+            - {Name: order_id, Type: int}
+            - {Name: user_id, Type: int}
+            - {Name: eval_set, Type: string}
+            - {Name: order_number, Type: int}
+            - {Name: order_dow, Type: int}
+            - {Name: order_hour_of_day, Type: int}
+            - {Name: days_since_prior_order, Type: float}
+          Location: "s3://imba-tobby-17a/imba/orders/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+            Parameters: { "field.delim": "," }
+
+  # 3. Order_Products 表
+  OrderProductsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref ImbaDatabase
+      TableInput:
+        Name: "order_products"
+        TableType: "EXTERNAL_TABLE"
+        Parameters: { "skip.header.line.count": "1" }
+        StorageDescriptor:
+          Columns:
+            - {Name: order_id, Type: int}
+            - {Name: product_id, Type: int}
+            - {Name: add_to_cart_order, Type: int}
+            - {Name: reordered, Type: int}
+          Location: "s3://imba-tobby-17a/imba/order_products/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+            Parameters: { "field.delim": "," }
+
+  # 4. Products 表
+  ProductsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref ImbaDatabase
+      TableInput:
+        Name: "products"
+        TableType: "EXTERNAL_TABLE"
+        Parameters: { "skip.header.line.count": "1" }
+        StorageDescriptor:
+          Columns:
+            - {Name: product_id, Type: int}
+            - {Name: product_name, Type: string}
+            - {Name: aisle_id, Type: int}
+            - {Name: department_id, Type: int}
+          Location: "s3://imba-tobby-17a/imba/products/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+            Parameters: { "field.delim": "," }
+
+  # 5. Aisles 表
+  AislesTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref ImbaDatabase
+      TableInput:
+        Name: "aisles"
+        TableType: "EXTERNAL_TABLE"
+        Parameters: { "skip.header.line.count": "1" }
+        StorageDescriptor:
+          Columns:
+            - {Name: aisle_id, Type: int}
+            - {Name: aisle, Type: string}
+          Location: "s3://imba-tobby-17a/imba/aisles/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+            Parameters: { "field.delim": "," }
+
+  # 6. Departments 表
+  DepartmentsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref ImbaDatabase
+      TableInput:
+        Name: "departments"
+        TableType: "EXTERNAL_TABLE"
+        Parameters: { "skip.header.line.count": "1" }
+        StorageDescriptor:
+          Columns:
+            - {Name: department_id, Type: int}
+            - {Name: department, Type: string}
+          Location: "s3://imba-tobby-17a/imba/departments/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+            Parameters: { "field.delim": "," }
