@@ -1,9 +1,17 @@
-name: CI-CD Glue Deploy
+name: Manual Glue Deploy
 
+# 修改为手动触发模式
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      region:
+        description: " (region us-east-1 或 ap-southeast-2)"
+        required: true
+        default: "us-east-1"
+      stackName:
+        description: "CloudFormation Stack"
+        default: "imba-data-stack"
+        required: true
 
 jobs:
   deploy-infrastructure:
@@ -17,11 +25,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1  # 锁定区域
+          # 使用你手动输入的区域参数
+          aws-region: ${{ github.event.inputs.region }}
 
-      - name: Deploy to CloudFormation
+      - name: Deploy Glue Tables to CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: imba-data-stack
+          # 使用你手动输入的 Stack 名称
+          name: ${{ github.event.inputs.stackName }}
+          # 确保指向你正确的建表文件名
           template: glue-tables.yaml
           no-fail-on-empty-changeset: "1"
