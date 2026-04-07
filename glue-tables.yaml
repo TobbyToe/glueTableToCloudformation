@@ -30,7 +30,7 @@ Resources:
             - {Name: order_dow, Type: int}
             - {Name: order_hour_of_day, Type: int}
             - {Name: days_since_prior_order, Type: float}
-          Location: "s3://imba-tobby-17a/imba/orders/"
+          Location: "s3://imba-tobby-17a/orders/"
           InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
           OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
           SerdeInfo:
@@ -53,7 +53,7 @@ Resources:
             - {Name: product_id, Type: int}
             - {Name: add_to_cart_order, Type: int}
             - {Name: reordered, Type: int}
-          Location: "s3://imba-tobby-17a/imba/order_products/"
+          Location: "s3://imba-tobby-17a/order_products/"
           InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
           OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
           SerdeInfo:
@@ -76,7 +76,7 @@ Resources:
             - {Name: product_name, Type: string}
             - {Name: aisle_id, Type: int}
             - {Name: department_id, Type: int}
-          Location: "s3://imba-tobby-17a/imba/products/"
+          Location: "s3://imba-tobby-17a/products/"
           InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
           OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
           SerdeInfo:
@@ -97,7 +97,7 @@ Resources:
           Columns:
             - {Name: aisle_id, Type: int}
             - {Name: aisle, Type: string}
-          Location: "s3://imba-tobby-17a/imba/aisles/"
+          Location: "s3://imba-tobby-17a/aisles/"
           InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
           OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
           SerdeInfo:
@@ -118,7 +118,7 @@ Resources:
           Columns:
             - {Name: department_id, Type: int}
             - {Name: department, Type: string}
-          Location: "s3://imba-tobby-17a/imba/departments/"
+          Location: "s3://imba-tobby-17a/departments/"
           InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
           OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
           SerdeInfo:
