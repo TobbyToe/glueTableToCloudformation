@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instacart AI Platform - Project Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0B0E14;
+            --card-bg: #151921;
+            --accent: #00F5FF;
+            --accent-dim: rgba(0, 245, 255, 0.15);
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --border: #2D3748;
+            --tag-infra: #38BDF8;
+            --tag-etl: #FB7185;
+            --tag-ml: #A78BFA;
+            --tag-gov: #34D399;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Slide Container */
+        .slide {
+            min-height: 100vh;
+            padding: 40px 80px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Deco */
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        h1, h2 { font-family: 'Syne', sans-serif; text-transform: uppercase; margin: 0; }
+        h1 { font-size: 4rem; letter-spacing: -2px; line-height: 1; }
+        h2 { font-size: 2rem; margin-bottom: 30px; color: var(--accent); }
+
+        .subtitle { font-size: 1.2rem; color: var(--text-secondary); margin-top: 20px; font-family: 'JetBrains+Mono'; }
+
+        /* Grid Layouts */
+        .grid-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            top: -1px; left: -1px; width: 40px; height: 40px;
+            border-top: 2px solid var(--accent);
+            border-left: 2px solid var(--accent);
+        }
+
+        /* Architecture Diagram Simulation */
+        .arch-viz {
+            width: 100%;
+            height: 450px;
+            background: #0D1117;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 20px;
+            border: 1px dashed var(--accent);
+        }
+
+        .node {
+            border: 1px solid var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background: var(--accent-dim);
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+
+        .arrow { color: var(--accent); font-size: 1.5rem; }
+
+        /* Roadmap Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; color: var(--accent); padding: 15px; border-bottom: 2px solid var(--border); font-family: 'JetBrains+Mono'; }
+        td { padding: 20px 15px; border-bottom: 1px solid var(--border); vertical-align: top; }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-right: 5px;
+            display: inline-block;
+        }
+        .infra { background: var(--tag-infra); color: #000; }
+        .etl { background: var(--tag-etl); color: #fff; }
+        .ml { background: var(--tag-ml); color: #fff; }
+        .gov { background: var(--tag-gov); color: #000; }
+
+        ul { list-style: none; padding: 0; margin: 0; }
+        li { margin-bottom: 8px; font-size: 0.95rem; }
+        li::before { content: "→ "; color: var(--accent); }
+
+        .status-bar {
+            display: flex;
+            gap: 20px;
+            margin-top: 50px;
+            font-family: 'JetBrains+Mono';
+            font-size: 0.8rem;
+        }
+
+        .badge { border: 1px solid var(--text-secondary); padding: 5px 15px; border-radius: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <section class="slide" id="cover">
+        <div class="sec-label" style="color:var(--accent); font-family:'JetBrains+Mono';">[ PROPOSAL V2.0 ]</div>
+        <h1>Instacart AI<br>Recommendation Platform</h1>
+        <p class="subtitle">Cloud-Native Data Engineering & ML Architecture</p>
+        <div class="status-bar">
+            <span class="badge">team member: Teresa, Allen, Tobby (IaC/DevOps)</span>
+            <span class="badge">Tech: AWS / Terraform / LightGBM</span>
+            <span class="badge">Scope: End-to-End Automation</span>
+        </div>
+    </section>
+
+    <section class="slide" id="summary">
+        <h2>Executive Summary</h2>
+        <div class="grid-summary">
+            <div class="card">
+                <h3>Business Core</h3>
+                <ul>
+                    <li><b>Task A:</b> 基于 LightGBM 的再购预测 (F1 ≥ 0.40)</li>
+                    <li><b>Task B:</b> 基于 EMR ALS 的协同过滤推荐 (Precision@10 ≥ 0.30)</li>
+                    <li><b>Value:</b> 通过自动化 IaC 与 CI/CD 提升 200,000+ 用户购物转化率</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Engineering Excellence</h3>
+                <ul>
+                    <li><b>IaC:</b> 100% Terraform 覆盖，实现 S3 Medallion 架构自动扩容</li>
+                    <li><b>Automation:</b> GitHub Actions 驱动 CI/CD，EventBridge 调度秒级响应</li>
+                    <li><b>Security:</b> Secrets Manager 集中管理 RDS/API 凭证，全链路加密</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="architecture">
+        <h2>Solution Architecture</h2>
+        <div class="arch-viz">
+            <div class="group">
+                <div style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">Sources</div>
+                <div class="node">RDS (Postgres)</div><br>
+                <div class="node">Product API</div><br>
+                <div class="node">Kinesis Stream</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="group">
+                <div style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">Ingestion (EventBridge)</div>
+                <div class="node" style="border-style: dashed;">AWS Lambda</div>
+                <div class="node" style="margin-top:10px;">Secrets Manager</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="group">
+                <div style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">Data Lake (S3)</div>
+                <div class="node">Bronze (Raw)</div><br>
+                <div class="node">Silver (Cleaned)</div><br>
+                <div class="node">Gold (Features)</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="group">
+                <div style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">ML & Serving</div>
+                <div class="node">SageMaker (LGBM)</div><br>
+                <div class="node">EMR (ALS)</div><br>
+                <div class="node">DynamoDB</div>
+            </div>
+        </div>
+        <p style="text-align: center; color: var(--text-secondary); font-family: 'JetBrains+Mono'; margin-top: 20px;">
+            Infrastructure automated by <span style="color:var(--accent)">GitHub Actions</span> & <span style="color:var(--accent)">Terraform</span>
+        </p>
+    </section>
+
+    <section class="slide" id="plan">
+        <h2>12-Week Sprint Roadmap</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>Jira Tasks (Detailed)</th>
+                    <th>Milestones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>W1-W3<br>Foundation</b></td>
+                    <td>
+                        <span class="tag infra">infra</span> Terraform S3 Medallion Setup (Bronze/Silver/Gold)<br>
+                        <span class="tag infra">infra</span> GitHub Actions CI/CD for IaC & Glue Scripts<br>
+                        <span class="tag gov">gov</span> Secrets Manager & CloudWatch Alarms setup<br>
+                        <span class="tag etl">etl</span> RDS/API Ingestion Lambda with EventBridge trigger
+                    </td>
+                    <td>Environment Ready<br>Raw Data Ingested</td>
+                </tr>
+                <tr>
+                    <td><b>W4-W6<br>ETL Dev</b></td>
+                    <td>
+                        <span class="tag etl">etl</span> Glue PySpark: Silver layer (Deduplication/NULL handling)<br>
+                        <span class="tag etl">etl</span> Glue Catalog Dynamic Partitioning<br>
+                        <span class="tag infra">infra</span> Kinesis Firehose setup for Clickstream
+                    </td>
+                    <td>Cleaned Data Avail.<br>Catalog Updated</td>
+                </tr>
+                <tr>
+                    <td><b>W7-W9<br>ML Training</b></td>
+                    <td>
+                        <span class="tag ml">ml</span> SageMaker: Task A LightGBM Binary Classification<br>
+                        <span class="tag ml">ml</span> EMR: Task B ALS Matrix Factorization<br>
+                        <span class="tag etl">etl</span> Gold Layer Feature Store aggregation
+                    </td>
+                    <td>Task A F1 > 0.38<br>Task B Prec > 0.28</td>
+                </tr>
+                <tr>
+                    <td><b>W10-W12<br>Serving</b></td>
+                    <td>
+                        <span class="tag infra">infra</span> DynamoDB Global Table Provisioning<br>
+                        <span class="tag ml">ml</span> A/B Testing Logic & Result Backfill to S3<br>
+                        <span class="tag gov">gov</span> QuickSight Business Impact Dashboard
+                    </td>
+                    <td>Project Handover<br>A/B Test Results</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>
